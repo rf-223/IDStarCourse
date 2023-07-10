@@ -1,7 +1,7 @@
 package com.idstarcourse.latihan.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 

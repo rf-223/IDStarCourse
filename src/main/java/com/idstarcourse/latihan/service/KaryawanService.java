@@ -1,5 +1,6 @@
 package com.idstarcourse.latihan.service;
 
+import com.idstarcourse.latihan.dao.request.LoginModel;
 import com.idstarcourse.latihan.model.Karyawan;
 import org.springframework.stereotype.Service;
 
@@ -13,4 +14,5 @@ public interface KaryawanService {
 
     public Map getAll(int size, int page);
     public Map getById(Long id);
+
 }

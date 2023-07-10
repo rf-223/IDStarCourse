@@ -1,20 +1,31 @@
 package com.idstarcourse.latihan.service.impl;
 
+import com.idstarcourse.latihan.dao.request.LoginModel;
 import com.idstarcourse.latihan.model.Karyawan;
 import com.idstarcourse.latihan.model.KaryawanDetail;
+import com.idstarcourse.latihan.model.oauth.Role;
+import com.idstarcourse.latihan.model.oauth.User;
 import com.idstarcourse.latihan.repository.KaryawanDetailRepository;
 import com.idstarcourse.latihan.repository.KaryawanRepository;
+import com.idstarcourse.latihan.repository.oauth.UserRepository;
 import com.idstarcourse.latihan.service.KaryawanService;
 import com.idstarcourse.latihan.util.TemplateResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -26,6 +37,16 @@ public class KaryawanServiceImpl implements KaryawanService {
     @Autowired
     TemplateResponse templateResponse;
 
+    @Autowired
+    UserRepository userRepository;
+
+    private PasswordEncoder passwordEncoder;
+
+    @Value("${BASEURL}")
+    private String baseUrl;
+
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
     @Override
     public Map insert(Karyawan karyawan) {
         try {

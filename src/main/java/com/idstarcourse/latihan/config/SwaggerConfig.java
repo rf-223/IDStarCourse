@@ -1,15 +1,17 @@
 package com.idstarcourse.latihan.config;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
+
 import org.springframework.context.annotation.Bean;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 public class SwaggerConfig {
     @Bean
-    public OpenAPI springDoc() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Latihan Level 4 ")
-                        .version("v1"));
+    public Docket springDoc() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.idstarcourse.latihan.controller"))
+                .build();
     }
 }
